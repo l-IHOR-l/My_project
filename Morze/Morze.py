@@ -25,7 +25,7 @@ def encr_morze(a: str = 'Hello World!', pause: str = '/', delimiter: str = ' ') 
     return q
 
 
-print(encr_morze(pause='/', delimiter=' '))
+print(encr_morze(a='Hello ', pause='!', delimiter=' '))
 
 a = '....|.|.-..|.-..|---|^.--|---|.-.|.-..|-..|-.-.--|'
 
@@ -55,4 +55,4 @@ def decrypt_morze(a: str = '.... . .-.. .-.. --- /.-- --- .-. .-.. -.. -.-.--', 
 
     return q
 
-
+#print(encr_morze())
