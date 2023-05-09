@@ -1,10 +1,5 @@
-class UserClass:
-    name = 'Alex'
-    age = 15
+import webbrowser
 
-    def get_name(self):
-        print(self.name)
 
-    def get_age(self):
-        print(self.age)
-
+url = 'https://www.youtube.com/watch?v=1TPuf-xFmWI&ab_channel=VladMiller'
+webbrowser.open_new(url)
