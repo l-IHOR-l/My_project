@@ -2,10 +2,12 @@ import random
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from aiogram.filters import Text, Command
-
+import os
+import dotenv
+dotenv.load_dotenv()
 # Instead of BOT TOKEN HERE, you need to insert your bot token,
 # received from @BotFather
-BOT_TOKEN: str = '6303185352:AAECZ7vk1ZS60d4d02HpT3G6arOvqPa3iUU'
+BOT_TOKEN: str = os.getenv('BOT_TOKEN')
 
 # Create object bot and dispatcher
 bot: Bot = Bot(BOT_TOKEN)
@@ -28,16 +30,19 @@ def get_random_number() -> int:
 async def procesor_start_command(message: Message):
     await message.answer('Hay\nLets go play the game "Guess the number!!"')
     # If the users just launched the bot and it is not in the dictionary userss - add it to the dictionary
-    if message.from_users.id not in users:
-        users[message.from_users.id] ={'in_game': False,'secret_number': None,'attempts': None,'total_games': 0,'wins': 0
-}
+    if message.from_user.id not in users:
+        users[message.from_user.id] ={'in_game': False,
+                                       'secret_number': None,
+                                       'attempts': None,
+                                       'total_games': 0,
+                                       'wins': 0}
 
 
 # This handler will fire on the "/help" command
 @dp.message(Command(commands=['help']))
 async def procesor_help_command(message: Message):
     await message.answer(f'Game rules:\n\nI guess a number from 1 to 100, '
-                          f'and you need to guess it\nYou have {ATTEMPTS}'
+                          f'and you need to guess it\nYou have {ATTEMPTS} '
                           f'attempts\n\nCommands available:\n/help - rules '
                           f'games and list of commands\n/cancel - quit the game\n'
                           f'/stat - view statistics\n\nLet\'s play a game?')
@@ -46,7 +51,8 @@ async def procesor_help_command(message: Message):
 # This handler will fire on the "/stat" command
 @dp.message(Command(commands=['stat']))
 async def procesor_stat_command(message: Message):
-    await message.answer(f'Total game play: {users[message.from_user.id]["total_games"]}\n'f'Play win: {users[message.from_user.id]["wins"]}')
+    await message.answer(f'Total game play: {users[message.from_user.id]["total_games"]}\n'
+                         f'Play win: {users[message.from_user.id]["wins"]}')
 
 
 # This handler will fire on the "/cancel" command

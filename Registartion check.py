@@ -1,8 +1,9 @@
 from string import digits
+from dataclasses import dataclass
+@dataclass()
 class Registraion:
-    def __init__(self, email, password):
-        self.email = email
-        self.password = password
+    email:str
+    password:str
 
     @property
     def password(self):
