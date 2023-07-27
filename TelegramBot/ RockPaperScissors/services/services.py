@@ -18,7 +18,7 @@ def get_winner(user_choice: str, bot_choice: str) -> str:
     rules: dict[str, str] = {
         'rock': 'scissors',
         'paper': 'rock',
-        'scissors': 'rock'
+        'scissors': 'paper'
     }
     if user_choice == bot_choice:
         return 'nobody_won'
