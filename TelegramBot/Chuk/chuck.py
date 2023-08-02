@@ -1,16 +1,17 @@
+import asyncio
+
 from aiogram import Bot, Dispatcher
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.filters import CommandStart, Text, Command
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery, BotCommand
 import requests
+from environs import Env
 
-chuck_joke_categories = requests.get('https://api.chucknorris.io/jokes/categories').json()
+env = Env()
+env.read_env()
+API_TOKEN = env.str('BOT_TOKEN')
 
-# Вместо BOT TOKEN HERE нужно вставить токен вашего бота,
-# полученный у @BotFather
-API_TOKEN: str = '6303185352:AAECZ7vk1ZS60d4d02HpT3G6arOvqPa3iUU'
-
-# Создаем объекты бота и диспетчера
+# Create object Bot and Dispatcher
 bot: Bot = Bot(token=API_TOKEN)
 dp: Dispatcher = Dispatcher()
 
@@ -26,6 +27,7 @@ kb_builder_start.row(*[random_button, categories_button], width=2)
 keyboard_start = kb_builder_start.as_markup()
 
 # Keyboard which category
+chuck_joke_categories = requests.get('https://api.chucknorris.io/jokes/categories').json()
 kb_builder: InlineKeyboardBuilder = InlineKeyboardBuilder()
 buttons: list[InlineKeyboardButton] = [InlineKeyboardButton(text=i, callback_data=i) for i in chuck_joke_categories]
 kb_builder.row(*buttons, width=2)
@@ -90,7 +92,13 @@ async def press_category(callback: CallbackQuery):
     await callback.message.answer(f'joke-category: {callback.data}\n{chuck_joke}')
     await callback.answer()
 
+async def main():
+    await bot.delete_webhook(drop_pending_updates=True)
+    dp.startup.register(set_main_menu)
+    await dp.start_polling(bot)
+
 
 if __name__ == '__main__':
-    dp.startup.register(set_main_menu)
-    dp.run_polling(bot)
+    asyncio.run(main())
+
+
