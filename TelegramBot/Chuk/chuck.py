@@ -1,23 +1,8 @@
 import asyncio
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-from aiogram import Bot, Dispatcher
-from aiogram.utils.keyboard import InlineKeyboardBuilder
-from aiogram.filters import CommandStart, Text, Command
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery, BotCommand
-=======
 from aiogram import Bot, Dispatcher
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.filters import CommandStart, Command
 from aiogram.types import InlineKeyboardButton, Message, CallbackQuery, BotCommand
->>>>>>> c5591f9 (Modified chuck bot)
-=======
-from aiogram import Bot, Dispatcher
-from aiogram.utils.keyboard import InlineKeyboardBuilder
-from aiogram.filters import CommandStart, Command
-from aiogram.types import InlineKeyboardButton, Message, CallbackQuery, BotCommand
->>>>>>> b9c0f0c (V1 Chuck_bot and echo_bot)
 import requests
 from environs import Env
 
@@ -66,16 +51,7 @@ async def set_main_menu(bot: Bot):
 # и отправлять в чат клавиатуру с инлайн-кнопками
 @dp.message(CommandStart())
 async def process_start_command(message: Message):
-<<<<<<< HEAD
-<<<<<<< HEAD
-    await message.answer(text='Это инлайн-кнопки. Нажми на любую!',
-                         reply_markup=keyboard_start)
-=======
     await message.answer(text='This is a joke bot from Chuck Norris.\n\nThese are inline buttons. Click on any one!', reply_markup=keyboard_start)
->>>>>>> c5591f9 (Modified chuck bot)
-=======
-    await message.answer(text='This is a joke bot from Chuck Norris.\n\nThese are inline buttons. Click on any one!', reply_markup=keyboard_start)
->>>>>>> b9c0f0c (V1 Chuck_bot and echo_bot)
 
 
 @dp.message(Command(commands=['help']))
